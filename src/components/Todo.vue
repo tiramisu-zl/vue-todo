@@ -33,19 +33,17 @@
         data() {
             return {
                 filter: 'all',
-                todoList: [{
-                    id: 1,
-                    content: 'todo item 1',
-                    completed: false,
-                }, {
-                    id: 2,
-                    content: 'todo item 2',
-                    completed: false,
-                }]
+                todoList: []
             }
         },
         methods: {
-            addTodo() {
+            addTodo(e) {
+                this.todoList.unshift({
+                    id: this.todoList.length + 1,
+                    content: e.target.value,
+                    completed: false,
+                });
+                e.target.value = '';
             }
         }
 
