@@ -16,7 +16,9 @@
             }
         },
         methods: {
-            deleteTodo() {}
+            deleteTodo() {
+                this.$emit('delete', this.todo)
+            }
         }
     }
 </script>

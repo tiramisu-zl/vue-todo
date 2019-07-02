@@ -11,7 +11,7 @@
         <section class="main">
             <ul class="todo-list">
                 <li class="todo" v-for="todo in todoList" :key="todo.id" :class="{completed: todo.completed}">
-                    <Item :todo="todo"></Item>
+                    <Item :todo="todo" @delete="handleDelete"></Item>
                 </li>
             </ul>
         </section>
@@ -44,6 +44,10 @@
                     completed: false,
                 });
                 e.target.value = '';
+            },
+            handleDelete(todo) {
+                const index = this.todoList.indexOf(todo);
+                this.todoList.splice(index, 1);
             }
         }
 
