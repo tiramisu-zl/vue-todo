@@ -15,7 +15,7 @@
                 </li>
             </ul>
         </section>
-        <Tabs :filter="filter"></Tabs>
+        <Tabs :filter="filter" :todos="todoList"></Tabs>
 
     </section>
 </template>

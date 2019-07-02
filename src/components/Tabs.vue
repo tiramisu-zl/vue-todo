@@ -1,7 +1,7 @@
 <template>
     <footer class="footer">
             <span class="todo-count">
-                <strong> 2 </strong> item left
+                <strong> {{activeLength}} </strong> item left
             </span>
         <ul class="filters">
             <li v-for="state in states" :key="state">
@@ -16,11 +16,17 @@
         name: "Tabs",
         props: {
             filter: String,
+            todos: Array,
         },
         data() {
             return {
                 states: ['all', 'active', 'completed'],
             }
+        },
+        computed: {
+          activeLength: function(){
+              return this.todos.filter(todo => !todo.completed).length
+          }
         },
         methods: {
             toggleState(){}
