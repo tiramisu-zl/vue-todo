@@ -1,7 +1,7 @@
 <template>
     <footer class="footer">
             <span class="todo-count">
-                <strong> {{activeLength}} </strong> item left
+                <strong> {{activeLength}} </strong> items left
             </span>
         <ul class="filters">
             <li v-for="state in states" :key="state">
@@ -29,7 +29,9 @@
           }
         },
         methods: {
-            toggleState(){}
+            toggleState(state){
+                this.$emit('toggle', state)
+            }
         }
     }
 </script>

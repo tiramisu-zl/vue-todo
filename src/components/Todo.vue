@@ -10,12 +10,12 @@
 
         <section class="main">
             <ul class="todo-list">
-                <li class="todo" v-for="todo in todoList" :key="todo.id" :class="{completed: todo.completed}">
+                <li class="todo" v-for="todo in filteredTodos" :key="todo.id" :class="{completed: todo.completed}">
                     <Item :todo="todo" @delete="handleDelete"></Item>
                 </li>
             </ul>
         </section>
-        <Tabs :filter="filter" :todos="todoList"></Tabs>
+        <Tabs :filter="filter" :todos="todoList" @toggle="handleToggle"></Tabs>
 
     </section>
 </template>
@@ -23,6 +23,12 @@
 <script>
     import Item from "./Item"
     import Tabs from "./Tabs"
+
+    const todoFilter = {
+        all: todos => todos,
+        active: todos => todos.filter(todo => !todo.completed),
+        completed: todos => todos.filter(todo => todo.completed)
+    };
 
     export default {
         name: "Todo",
@@ -33,7 +39,12 @@
         data() {
             return {
                 filter: 'all',
-                todoList: []
+                todoList: [],
+            }
+        },
+        computed: {
+            filteredTodos: function () {
+                return todoFilter[this.filter](this.todoList);
             }
         },
         methods: {
@@ -48,6 +59,9 @@
             handleDelete(todo) {
                 const index = this.todoList.indexOf(todo);
                 this.todoList.splice(index, 1);
+            },
+            handleToggle(filter){
+                this.filter = filter;
             }
         }
 
