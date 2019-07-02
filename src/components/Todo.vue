@@ -10,8 +10,19 @@
 
         <section class="main">
             <ul class="todo-list">
-                <li class="todo" v-for="todo in filteredTodos" :key="todo.id" :class="{completed: todo.completed}">
-                    <Item :todo="todo" @delete="handleDelete"></Item>
+                <li
+                        class="todo"
+                        v-for="todo in filteredTodos"
+                        :key="todo.id"
+                        :class="{completed: todo.completed, editing: todo == editingTodo}"
+                >
+                    <Item
+                            :todo="todo"
+                            :editingTodo="editingTodo"
+                            @delete="handleDelete"
+                            @edit="handleEdit"
+                            @editDone="handleEditDone"
+                    />
                 </li>
             </ul>
         </section>
@@ -39,6 +50,7 @@
         data() {
             return {
                 filter: 'all',
+                editingTodo: null,
                 todoList: [],
             }
         },
@@ -62,6 +74,12 @@
             },
             handleToggle(filter){
                 this.filter = filter;
+            },
+            handleEdit(todo){
+                this.editingTodo = todo;
+            },
+            handleEditDone() {
+                this.editingTodo = null;
             }
         }
 
