@@ -1,13 +1,11 @@
+import api from '../api/todoApi'
 import axios from "axios";
 
 const baseUrl = "https://5d1c3b35f31e7f00147eb3a1.mockapi.io/api/v1/todos";
 
 const actions = {
     async getTodos({ commit }) {
-        axios.get(baseUrl).then(r => r.data)
-            .then(todos => {
-                commit('loadTodo', todos)
-            })
+        api.getTodos(commit, 'loadTodo');
     },
 
     async addTodo({ commit }, { id, content }) {
