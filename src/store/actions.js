@@ -9,15 +9,7 @@ const actions = {
     },
 
     async addTodo({ commit }, { id, content }) {
-        const data = {
-            id,
-            content,
-            completed: false
-        };
-        axios.post(baseUrl, data).then(r => r.data)
-            .then(todo => {
-                commit('addTodo', todo)
-            })
+        api.addTodo(commit, 'addTodo', { id, content });
     },
 
     async deleteTodo({ commit }, todo) {

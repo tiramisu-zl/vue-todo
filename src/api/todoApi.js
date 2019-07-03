@@ -9,6 +9,17 @@ const api = {
                 commit(mutation, res.data)
             }).catch(error => console.log(error));
     },
+    addTodo(commit, mutation, { id, content }) {
+        const data = {
+            id,
+            content,
+            completed: false
+        };
+        axios.post(baseUrl, data)
+            .then(r => {
+                commit(mutation, r.data)
+            })
+    },
 };
 
 export default api;
