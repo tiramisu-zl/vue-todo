@@ -13,6 +13,10 @@ const mutations = {
     editTodo (state, { todo, newTodo }) {
         todo.content = newTodo.content;
         todo.completed = newTodo.completed;
+    },
+
+    setName (state, name) {
+        state.name = name
     }
 };
 

@@ -5,7 +5,7 @@
         </a-row>
         <a-row type="flex" justify="center">
             <a-col :span="12">
-                <a-input type="text" placeholder="请输入姓名" />
+                <a-input type="text" placeholder="请输入姓名" @blur="setName"/>
             </a-col>
         </a-row>
         <a-row type="flex" justify="center">
@@ -18,8 +18,17 @@
 </template>
 
 <script>
+    import { mapMutations } from 'vuex'
     export default {
-        name: "Main"
+        name: "Main",
+        methods: {
+            ...mapMutations([
+                'setName'
+            ]),
+            setName(e){
+                this.$store.commit('setName', e.target.value)
+            }
+        }
     }
 </script>
 

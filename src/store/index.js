@@ -10,6 +10,7 @@ Vue.use(VueAxios, axios)
 
 export default new Vuex.Store({
     state: {
+        name: '',
         todoList: []
     },
     mutations,

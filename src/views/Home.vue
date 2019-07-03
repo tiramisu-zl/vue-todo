@@ -9,7 +9,9 @@
                     </router-link>
                 </a-col>
                 <a-col :span="12">
-                    Hello, Tom!
+                    <h1 class="color-white">
+                        Hello, {{ name }}!
+                    </h1>
                 </a-col>
             </a-row>>
 
@@ -34,8 +36,14 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex'
     export default {
         name: "Home",
+        computed: {
+            ...mapState([
+                'name'
+            ]),
+        }
     }
 </script>
 
