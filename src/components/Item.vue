@@ -43,7 +43,7 @@
                 'editTodo',
                 'deleteTodo'
             ]),
-            doneEdit(e) {
+            doneEdit() {
                 // 双向绑定所以不用去手动更新store
                 // const value = e.target.value.trim();
                 // const {todo} = this;

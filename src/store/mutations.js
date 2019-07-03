@@ -8,7 +8,6 @@ const mutations = {
     },
 
     editTodo (state, { todo, value }) {
-        debugger;
         todo.content = value
     }
 };
