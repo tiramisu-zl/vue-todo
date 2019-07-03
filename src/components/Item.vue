@@ -1,16 +1,29 @@
 <template>
     <div>
-        <div class="view">
-            <input class="toggle" type="checkbox" v-model="todo.completed">
-            <label @dblclick="editTodo">{{todo.content}}</label>
-            <button class="destroy" @click="deleteTodo"></button>
-        </div>
-        <input class="edit" type="text" v-model="todo.content"
-               @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)">
+        <li
+            class="todo"
+            :class="{completed: todo.completed, editing: editing}"
+        >
+            <div class="view">
+                <input class="toggle" type="checkbox" v-model="todo.completed">
+                <label @dblclick="editing=true">{{todo.content}}</label>
+                <button class="destroy" @click="deleteTodo(todo)"></button>
+            </div>
+            <input
+                    v-show="editing"
+                    class="edit"
+                    type="text"
+                    v-model="todo.content"
+                    @blur="doneEdit"
+                    @keyup.enter="doneEdit"
+            >
+        </li>
     </div>
 </template>
 
 <script>
+    import {mapMutations} from 'vuex'
+
     export default {
         name: "Item",
         props: {
@@ -20,17 +33,33 @@
             },
             editingTodo: Object,
         },
+        data() {
+            return {
+                editing: false,
+            }
+        },
         methods: {
-            deleteTodo() {
-                this.$emit('delete', this.todo)
+            ...mapMutations([
+                'editTodo',
+                'deleteTodo'
+            ]),
+            doneEdit(e) {
+                // 双向绑定所以不用去手动更新store
+                // const value = e.target.value.trim();
+                // const {todo} = this;
+                // if (!value) {
+                //     this.deleteTodo(todo)
+                // } else if (this.editing) {
+                //     this.editTodo({
+                //         todo,
+                //         value
+                //     });
+                //     this.editing = false
+                // }
+                this.editing = false
+
             },
-            editTodo() {
-                this.$emit('edit', this.todo)
-            },
-            doneEdit() {
-                this.$emit('editDone', this.todo)
-            },
-        }
+        },
     }
 </script>
 

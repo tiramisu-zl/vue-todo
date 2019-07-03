@@ -1,16 +1,21 @@
 <template>
   <div id="app">
-    <TodoList></TodoList>
+    <section class="todoapp" >
+      <Header></Header>
+      <Todo></Todo>
+    </section>
   </div>
 </template>
 
 <script>
-import TodoList from "./components/TodoList"
+import Header from "./components/Header"
+import Todo from "./components/Todo"
 
 export default {
   name: 'app',
   components: {
-    TodoList,
+    Header,
+    Todo,
   }
 }
 
