@@ -1,19 +1,19 @@
 <template>
     <section>
         <input
-            class="new-todo"
-            autofocus
-            autocomplete="off"
-            placeholder="What needs to be done?"
-            @keyup.enter="addTodo"
+                class="new-todo"
+                autofocus
+                autocomplete="off"
+                placeholder="What needs to be done?"
+                @keyup.enter="addTodo"
         >
 
         <section class="main">
             <ul class="todo-list">
                 <Item
-                    v-for="todo in filteredTodos"
-                    :key="todo.id"
-                    :todo="todo"
+                        v-for="todo in filteredTodos"
+                        :key="todo.id"
+                        :todo="todo"
                 />
             </ul>
         </section>
@@ -25,8 +25,7 @@
 <script>
     import Item from "./Item"
     import Tabs from "./Tabs"
-    import {mapMutations} from 'vuex'
-    import {mapState} from 'vuex'
+    import { mapState } from 'vuex'
 
     const todoFilter = {
         all: todos => todos,
@@ -45,13 +44,13 @@
                 filter: 'all',
             }
         },
+        mounted () {
+            this.$store.dispatch('getTodos')
+        },
         computed: {
             ...mapState([
                 'todoList'
             ]),
-            // todoList () {
-            //     return this.$store.state.todoList
-            // },
             filteredTodos() {
                 return todoFilter[this.filter](this.todoList)
             },
@@ -60,14 +59,11 @@
             }
         },
         methods: {
-            ...mapMutations([
-                'addTodo',
-            ]),
             addTodo(e) {
                 const content = e.target.value;
                 const id = this.todoList.length + 1;
                 if (content.trim()) {
-                    this.$store.commit('addTodo', {id, content})
+                    this.$store.dispatch('addTodo', {id, content})
                 }
                 e.target.value = ''
             },

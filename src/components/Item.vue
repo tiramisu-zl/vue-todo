@@ -5,7 +5,7 @@
             :class="{completed: todo.completed, editing: editing}"
         >
             <div class="view">
-                <input class="toggle" type="checkbox" v-model="todo.completed">
+                <input class="toggle" type="checkbox" :value="todo.completed" @change="toggleTodo(todo)">
                 <label @dblclick="editing=true">{{todo.content}}</label>
                 <button class="destroy" @click="deleteTodo(todo)"></button>
             </div>
@@ -13,7 +13,7 @@
                     v-show="editing"
                     class="edit"
                     type="text"
-                    v-model="todo.content"
+                    :value="todo.content"
                     @blur="doneEdit"
                     @keyup.enter="doneEdit"
             >
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-    import {mapMutations} from 'vuex'
+    import { mapActions } from 'vuex'
 
     export default {
         name: "Item",
@@ -39,23 +39,23 @@
             }
         },
         methods: {
-            ...mapMutations([
+            ...mapActions([
                 'editTodo',
+                'toggleTodo',
                 'deleteTodo'
             ]),
-            doneEdit() {
-                // 双向绑定所以不用去手动更新store
-                // const value = e.target.value.trim();
-                // const {todo} = this;
-                // if (!value) {
-                //     this.deleteTodo(todo)
-                // } else if (this.editing) {
-                //     this.editTodo({
-                //         todo,
-                //         value
-                //     });
-                //     this.editing = false
-                // }
+            doneEdit(e) {
+                const content = e.target.value.trim();
+                const {todo} = this;
+                if (!content) {
+                    this.deleteTodo(todo)
+                } else if (this.editing) {
+                    this.editTodo({
+                        todo,
+                        content
+                    });
+                    this.editing = false
+                }
                 this.editing = false
 
             },

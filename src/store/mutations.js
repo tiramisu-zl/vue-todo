@@ -1,4 +1,7 @@
 const mutations = {
+    loadTodo(state, todos) {
+        state.todoList = todos;
+    },
     addTodo (state, todo) {
         state.todoList.unshift(todo)
     },
@@ -7,8 +10,9 @@ const mutations = {
         state.todoList.splice(state.todoList.indexOf(todo), 1)
     },
 
-    editTodo (state, { todo, value }) {
-        todo.content = value
+    editTodo (state, { todo, newTodo }) {
+        todo.content = newTodo.content;
+        todo.completed = newTodo.completed;
     }
 };
 
